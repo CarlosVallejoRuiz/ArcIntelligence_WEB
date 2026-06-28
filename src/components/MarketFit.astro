@@ -1,0 +1,95 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<section class="bg-panel" id="para-quien">
+  <div class="container">
+    <div class="mf-inner">
+      <!-- Encabezado -->
+      <div class="mf-header fade-in">
+        <h2 class="section-title lang-es">{es.marketFit.title}</h2>
+        <h2 class="section-title lang-en">{en.marketFit.title}</h2>
+        <p class="section-subtitle lang-es">{es.marketFit.subtitle}</p>
+        <p class="section-subtitle lang-en">{en.marketFit.subtitle}</p>
+      </div>
+
+      <!-- Checklist -->
+      <ul class="mf-checklist fade-in fade-in-delay-1" role="list">
+        {es.marketFit.items.map((_, i) => (
+          <li class="mf-item">
+            <div class="mf-check" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </div>
+            <span class="lang-es">{es.marketFit.items[i]}</span>
+            <span class="lang-en">{en.marketFit.items[i]}</span>
+          </li>
+        ))}
+      </ul>
+
+      <!-- CTA final -->
+      <div class="mf-cta fade-in fade-in-delay-2">
+        <a href="#contacto" class="btn btn-primary btn-lg lang-es">Habla con nosotros</a>
+        <a href="#contact" class="btn btn-primary btn-lg lang-en">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .mf-inner {
+    max-width: 700px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+    align-items: flex-start;
+  }
+
+  .mf-header {
+    width: 100%;
+  }
+
+  .mf-header .section-title {
+    margin-bottom: var(--space-4);
+  }
+
+  .mf-checklist {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .mf-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-4);
+    font-size: var(--text-base);
+    color: var(--texto);
+    line-height: 1.6;
+    padding: var(--space-4) var(--space-5);
+    background-color: #fff;
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-lg);
+  }
+
+  .mf-check {
+    width: 28px;
+    height: 28px;
+    background-color: var(--exito);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .mf-cta {
+    width: 100%;
+  }
+</style>

@@ -1,0 +1,92 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+
+const techs = [
+  { name: 'RoboDK', desc: 'Robot simulation', label: 'Integration' },
+  { name: 'Claude AI', desc: 'Anthropic', label: 'AI Engine' },
+  { name: 'Python', desc: 'Backend core', label: 'Runtime' },
+  { name: 'ISO 2553', desc: 'Weld params', label: 'Standard' },
+  { name: 'ISO 3834', desc: 'Quality mgmt', label: 'Standard' },
+  { name: 'KUKA KRL', desc: 'Robot lang.', label: 'Export' },
+  { name: 'URScript', desc: 'Universal Robots', label: 'Export' },
+];
+---
+
+<section>
+  <div class="container">
+    <div class="tech-header fade-in">
+      <h2 class="section-title lang-es">{es.techstack.title}</h2>
+      <h2 class="section-title lang-en">{en.techstack.title}</h2>
+    </div>
+
+    <div class="tech-row fade-in fade-in-delay-1">
+      {techs.map((tech) => (
+        <div class="tech-badge">
+          <span class="tech-label">{tech.label}</span>
+          <span class="tech-name">{tech.name}</span>
+          <span class="tech-desc">{tech.desc}</span>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tech-header {
+    text-align: center;
+    margin-bottom: var(--space-10);
+  }
+
+  .tech-header .section-title {
+    margin-bottom: 0;
+  }
+
+  .tech-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    justify-content: center;
+    align-items: stretch;
+  }
+
+  .tech-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    padding: var(--space-4) var(--space-5);
+    background-color: var(--bg-panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-lg);
+    min-width: 110px;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .tech-badge:hover {
+    border-color: var(--acento);
+    box-shadow: 0 0 0 3px rgba(224,123,57,0.08);
+  }
+
+  .tech-label {
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    color: var(--acento);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .tech-name {
+    font-size: var(--text-base);
+    font-weight: var(--weight-bold);
+    color: var(--texto);
+    white-space: nowrap;
+  }
+
+  .tech-desc {
+    font-size: var(--text-xs);
+    color: var(--texto-sec);
+    white-space: nowrap;
+  }
+</style>

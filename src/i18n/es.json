@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "features": "Lo que hace",
+    "howItWorks": "Cómo funciona",
+    "contact": "Contacto",
+    "cta": "Cuéntame tu caso"
+  },
+  "hero": {
+    "h1": "Cada pieza nueva, lista para el robot en minutos.",
+    "subtitle": "Lee el STEP, detecta juntas soldables, calcula parámetros ISO 2553 y genera el programa KRL o URScript — para que tu taller pueda aceptar más encargos sin ampliar plantilla.",
+    "statLabel": "Tiempo de configuración por pieza nueva",
+    "ctaPrimary": "Cuéntame tu caso",
+    "ctaSecondary": "Ver en acción",
+    "badges": {
+      "iso2553": "ISO 2553",
+      "iso3834": "ISO 3834",
+      "robots": "KUKA · Universal Robots",
+      "ai": "Powered by Claude AI"
+    }
+  },
+  "problem": {
+    "title": "El cuello de botella que frena tu taller no está en la soldadura — está en lo que va antes",
+    "items": [
+      {
+        "metric": "4–8h",
+        "metricUnit": "por pieza nueva",
+        "title": "Cada pieza nueva empieza desde cero",
+        "desc": "Identificar juntas a ojo, calcular parámetros en papel, programar trayectoria punto a punto. Mientras tanto, el robot espera y el pedido sigue abierto."
+      },
+      {
+        "metric": "1",
+        "metricUnit": "único punto de conocimiento",
+        "title": "El conocimiento crítico sin relevo",
+        "desc": "La forma de configurar cada pieza vive en la cabeza de una o dos personas. Cuando están ocupadas, de vacaciones o gestionando otra urgencia, el robot para — no por falta de capacidad del equipo, sino porque ese conocimiento no está documentado ni es transferible."
+      },
+      {
+        "metric": "?",
+        "metricUnit": "horas · coste real",
+        "title": "Presupuestas sin datos",
+        "desc": "¿Cuánto tiempo tarda configurar esta pieza? ¿Cuánto hilo y gas consume? Sin cálculo real, cada presupuesto es una estimación. Y una estimación no es un precio."
+      }
+    ]
+  },
+  "solution": {
+    "title": "De archivo STEP a programa de robot, en 4 pasos",
+    "steps": [
+      {
+        "icon": "upload",
+        "title": "Cargar STEP",
+        "desc": "Sube el ensamblaje directamente desde tu CAD"
+      },
+      {
+        "icon": "scan",
+        "title": "Detección automática",
+        "desc": "El sistema identifica todas las juntas soldables — filete, tope, ángulo, solape"
+      },
+      {
+        "icon": "gear",
+        "title": "Parámetros ISO 2553",
+        "desc": "Garganta efectiva, cateto, velocidad de avance — calculados"
+      },
+      {
+        "icon": "download",
+        "title": "Exportar programa",
+        "desc": "KUKA KRL o URScript, listo para cargar en el controlador"
+      }
+    ]
+  },
+  "features": {
+    "title": "Lo que hace",
+    "items": [
+      {
+        "title": "Detección geométrica de juntas soldables",
+        "desc": "Filete, tope, ángulo, solape. El sistema analiza la geometría STEP real y localiza cada junta soldable sobre la malla de la pieza. No son bounding boxes ni heurísticas visuales — es análisis geométrico sobre el modelo."
+      },
+      {
+        "title": "Interfaz para quien ya sabe soldar",
+        "desc": "Click en la junta. Ajusta garganta, cateto y velocidad de avance. Ejecuta. Sin asistentes de cuatro pasos ni confirmaciones redundantes. El sistema supone que ya sabes interpretar un plano de soldadura — y trabaja en consecuencia."
+      },
+      {
+        "title": "Tus parámetros WPS, aplicados en un click",
+        "desc": "Guarda los parámetros certificados de tu taller y aplícalos sobre cualquier junta. La próxima pieza similar hereda la configuración que ya tienes validada."
+      },
+      {
+        "title": "Procesado en lote, sin supervisión",
+        "desc": "Manda decenas de ensamblajes STEP en un lote y deja que procesen solos. Cuando vuelves, el trabajo está hecho."
+      },
+      {
+        "title": "Presupuesto antes de comprometerte",
+        "desc": "Longitud de cordón, tiempo de arco, consumo de hilo y gas, coste total — calculados antes de encender el arco. Responde a un encargo nuevo en minutos, no al día siguiente."
+      },
+      {
+        "title": "Trazabilidad ISO 3834, automática",
+        "desc": "Historial completo de cada cordón, parámetro y pieza. Exportable a PDF o Excel para cualquier auditoría de calidad, sin registro manual."
+      }
+    ]
+  },
+  "techstack": {
+    "title": "Construido sobre tecnología robusta"
+  },
+  "howItWorks": {
+    "title": "Cómo funciona",
+    "steps": [
+      {
+        "tag": "Paso 1",
+        "title": "Carga el ensamblaje",
+        "desc": "Importa cualquier archivo STEP estándar — el mismo que ya sale de tu CAD. ArcIntelligence analiza la geometría 3D real e identifica automáticamente todas las juntas soldables: filete, tope, ángulo y solape.",
+        "placeholder": "Captura: Tab ENSAMBLAJE con vista 3D y juntas detectadas resaltadas"
+      },
+      {
+        "tag": "Paso 2",
+        "title": "Parámetros calculados",
+        "desc": "Selecciona cualquier junta detectada. El sistema calcula garganta efectiva, cateto, ángulo de ataque, velocidad de avance y flujo de gas según ISO 2553. Aplica tus plantillas WPS certificadas en un click.",
+        "placeholder": "Captura: Panel PARÁMETROS con geometría ISO 2553 y campos precalculados"
+      },
+      {
+        "tag": "Paso 3",
+        "title": "La secuencia, generada",
+        "desc": "Revisa la lista de cordones en el panel lateral. ArcIntelligence propone el orden óptimo de soldadura y permite reordenar manualmente según los criterios propios de tu proceso.",
+        "placeholder": "Captura: Panel derecho con lista de cordones y secuencia de soldadura"
+      },
+      {
+        "tag": "Paso 4",
+        "title": "Exporta al controlador real",
+        "desc": "KUKA KRL o URScript. El archivo sale listo para cargar directamente en el controlador — sin transformaciones adicionales, sin pasos extra.",
+        "placeholder": "Captura: Modal de exportación con selector KUKA / UR y botón de descarga"
+      }
+    ]
+  },
+  "comparison": {
+    "title": "Configuración de pieza nueva: manual vs. con ArcIntelligence",
+    "manual": {
+      "label": "Configuración manual",
+      "time": "4 – 8 h"
+    },
+    "arc": {
+      "label": "ArcIntelligence",
+      "time": "< 2 min"
+    },
+    "metrics": [
+      { "label": "Detección de juntas", "before": "A ojo",       "after": "Automática"  },
+      { "label": "Cálculo ISO 2553",    "before": "En papel",    "after": "Instantáneo" },
+      { "label": "Presupuesto",          "before": "Estimado",    "after": "Calculado"   },
+      { "label": "Trazabilidad",         "before": "Excel manual","after": "Automática"  }
+    ]
+  },
+  "marketFit": {
+    "title": "¿Es esto para tu taller?",
+    "subtitle": "ArcIntelligence no es para todos. Es para talleres que ya tienen robots — y quieren que produzcan más sin que el setup sea el límite.",
+    "items": [
+      "Tienes RoboDK, RobotStudio o programas directamente en el controlador, pero configurar piezas nuevas sigue siendo el paso más lento",
+      "El conocimiento de configuración robótica está concentrado en una o dos personas, y quieres que más de tu equipo pueda asumir ese trabajo",
+      "Recibes encargos variados con frecuencia y necesitas presupuestar con datos reales antes de comprometerte",
+      "Quieres trazabilidad ISO 3834 sin implantar un sistema de gestión completo"
+    ]
+  },
+  "contact": {
+    "title": "Cuéntame cómo es tu taller",
+    "subtitle": "Sin página de precios, sin demo genérica. Cuéntame el robot que tienes, qué tipo de piezas soldas y tu volumen mensual — y te digo si tiene sentido para tu caso concreto.",
+    "form": {
+      "name": "Nombre",
+      "company": "Taller o empresa",
+      "email": "Email",
+      "message": "Cuéntame",
+      "messagePlaceholder": "Qué robot tienes, qué tipo de piezas soldas, cuántas piezas nuevas recibes al mes...",
+      "submit": "Enviar"
+    },
+    "direct": {
+      "intro": "O directamente:"
+    }
+  },
+  "footer": {
+    "tagline": "Más robot trabajando. Menos robot esperando.",
+    "links": {
+      "home": "Inicio",
+      "features": "Lo que hace",
+      "contact": "Contacto"
+    },
+    "copyright": "© 2026 ArcIntelligence. Todos los derechos reservados.",
+    "disclaimer": "Proyecto independiente. No afiliado con RoboDK, KUKA, Universal Robots ni Anthropic."
+  }
+}

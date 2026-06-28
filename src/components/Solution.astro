@@ -1,0 +1,187 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+
+const icons = {
+  upload: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>`,
+  scan:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><circle cx="11" cy="11" r="3.5" stroke-dasharray="2 2" stroke-width="1.25"/></svg>`,
+  gear:   `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/></svg>`,
+  download: `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>`,
+};
+
+const arrowH = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="13 6 19 12 13 18"/></svg>`;
+const arrowV = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="6 13 12 19 18 13"/></svg>`;
+
+// Precompute: look up each step's icon SVG so no TypeScript casts needed in template
+const stepsEs = es.solution.steps.map((step) => ({
+  ...step,
+  iconSvg: icons[step.icon] ?? icons.upload,
+}));
+const stepsEn = en.solution.steps;
+---
+
+<section id="solucion">
+  <div class="container">
+    <div class="solution-header fade-in">
+      <h2 class="section-title lang-es">{es.solution.title}</h2>
+      <h2 class="section-title lang-en">{en.solution.title}</h2>
+    </div>
+
+    <!--
+      Las flechas son elementos hermanos de las tarjetas, NO hijos absolutos.
+      Esto elimina el solapamiento: flex-row con gap controla el espacio.
+    -->
+    <div class="steps-row">
+      {stepsEs.map((step, i) => (
+        <Fragment>
+          <div class={`step-card fade-in fade-in-delay-${i + 1}`}>
+            <div class="step-top">
+              <div class="step-number" aria-hidden="true">{i + 1}</div>
+              <div class="step-icon" set:html={step.iconSvg} />
+            </div>
+            <h3>
+              <span class="lang-es">{step.title}</span>
+              <span class="lang-en">{stepsEn[i].title}</span>
+            </h3>
+            <p>
+              <span class="lang-es">{step.desc}</span>
+              <span class="lang-en">{stepsEn[i].desc}</span>
+            </p>
+          </div>
+
+          {i < stepsEs.length - 1 && (
+            <div class="step-connector" aria-hidden="true">
+              <span class="connector-h" set:html={arrowH} />
+              <span class="connector-v" set:html={arrowV} />
+            </div>
+          )}
+        </Fragment>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .solution-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+  }
+  .solution-header .section-title { margin-bottom: 0; }
+
+  /* ── Layout principal ──
+     Mobile: columna con gap
+     Desktop: fila — step-card y step-connector como hermanos
+  */
+  .steps-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .steps-row {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-3);
+    }
+  }
+
+  /* ── Tarjeta de paso ── */
+  .step-card {
+    flex: 1;
+    min-width: 0; /* evita overflow en flex */
+    background-color: var(--bg-panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-lg);
+    padding: var(--space-5) var(--space-5);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  /* Mobile: tarjeta en fila con número + icono a la izquierda */
+  .step-top {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 768px) {
+    .step-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-2);
+    }
+  }
+
+  /* Número del paso */
+  .step-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: var(--acento);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: var(--weight-bold);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+  }
+
+  /* Icono del paso */
+  .step-icon {
+    width: 40px;
+    height: 40px;
+    background-color: #fff;
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--acento);
+    flex-shrink: 0;
+  }
+
+  .step-card h3 {
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .step-card p {
+    font-size: 0.8rem;
+    color: var(--texto-sec);
+    line-height: 1.65;
+  }
+
+  /* ── Conector entre pasos ──
+     Hermano directo de .step-card en el flex,
+     nunca posicionado absolutamente.
+  */
+  .step-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--borde);
+    flex-shrink: 0;
+  }
+
+  /* Mobile: flecha apunta hacia abajo */
+  .connector-h { display: none; }
+  .connector-v { display: flex; }
+
+  /* Desktop: flecha apunta a la derecha */
+  @media (min-width: 768px) {
+    .connector-h { display: flex; }
+    .connector-v { display: none; }
+
+    .step-connector {
+      width: 32px; /* ancho fijo del conector, no consume espacio del step */
+    }
+  }
+</style>

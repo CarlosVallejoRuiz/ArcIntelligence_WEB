@@ -1,0 +1,222 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<section class="bg-panel" id="problema">
+  <div class="container">
+
+    <div class="problem-header fade-in">
+      <h2 class="section-title lang-es">{es.problem.title}</h2>
+      <h2 class="section-title lang-en">{en.problem.title}</h2>
+    </div>
+
+    <div class="problem-grid">
+
+      <!-- Tarjeta 1: Tiempo -->
+      <div class="problem-card fade-in fade-in-delay-1">
+        <!-- El número como anchor visual — en monospace, grande -->
+        <div class="problem-metric">
+          <span class="metric-value data-mono lang-es">{es.problem.items[0].metric}</span>
+          <span class="metric-value data-mono lang-en">{en.problem.items[0].metric}</span>
+          <span class="metric-unit lang-es">{es.problem.items[0].metricUnit}</span>
+          <span class="metric-unit lang-en">{en.problem.items[0].metricUnit}</span>
+        </div>
+
+        <!-- Icono custom: cronómetro con arco de trayectoria -->
+        <div class="problem-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Base del cronómetro -->
+            <circle cx="12" cy="13.5" r="7.5"/>
+            <!-- Botón superior -->
+            <rect x="10" y="3" width="4" height="2" rx="1"/>
+            <!-- Varilla -->
+            <line x1="12" y1="5" x2="12" y2="6"/>
+            <!-- Manecillas -->
+            <line x1="12" y1="9.5" x2="12" y2="13.5"/>
+            <line x1="12" y1="13.5" x2="15.2" y2="13.5"/>
+            <!-- Marca 12 -->
+            <line x1="12" y1="7" x2="12" y2="8.5" stroke-width="2"/>
+          </svg>
+        </div>
+
+        <div class="problem-text">
+          <h3>
+            <span class="lang-es">{es.problem.items[0].title}</span>
+            <span class="lang-en">{en.problem.items[0].title}</span>
+          </h3>
+          <p>
+            <span class="lang-es">{es.problem.items[0].desc}</span>
+            <span class="lang-en">{en.problem.items[0].desc}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 2: Dependencia -->
+      <div class="problem-card fade-in fade-in-delay-2">
+        <div class="problem-metric">
+          <span class="metric-value data-mono lang-es">{es.problem.items[1].metric}</span>
+          <span class="metric-value data-mono lang-en">{en.problem.items[1].metric}</span>
+          <span class="metric-unit lang-es">{es.problem.items[1].metricUnit}</span>
+          <span class="metric-unit lang-en">{en.problem.items[1].metricUnit}</span>
+        </div>
+
+        <!-- Icono custom: persona con eslabón de cadena — dependencia -->
+        <div class="problem-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Persona -->
+            <circle cx="9" cy="6.5" r="3"/>
+            <path d="M3 21v-2a6 6 0 0 1 12 0v2"/>
+            <!-- Candado de dependencia -->
+            <rect x="16" y="11" width="6" height="5" rx="1"/>
+            <path d="M17 11V9.5a2 2 0 0 1 4 0V11"/>
+            <circle cx="19" cy="13.5" r="0.8" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="problem-text">
+          <h3>
+            <span class="lang-es">{es.problem.items[1].title}</span>
+            <span class="lang-en">{en.problem.items[1].title}</span>
+          </h3>
+          <p>
+            <span class="lang-es">{es.problem.items[1].desc}</span>
+            <span class="lang-en">{en.problem.items[1].desc}</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Tarjeta 3: Presupuesto a ciegas -->
+      <div class="problem-card fade-in fade-in-delay-3">
+        <div class="problem-metric problem-metric-question">
+          <span class="metric-value data-mono lang-es">{es.problem.items[2].metric}</span>
+          <span class="metric-value data-mono lang-en">{en.problem.items[2].metric}</span>
+          <span class="metric-unit lang-es">{es.problem.items[2].metricUnit}</span>
+          <span class="metric-unit lang-en">{en.problem.items[2].metricUnit}</span>
+        </div>
+
+        <!-- Icono custom: gráfica con barra incierta (línea de puntos) -->
+        <div class="problem-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+               stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Ejes -->
+            <line x1="3" y1="20" x2="21" y2="20"/>
+            <line x1="3" y1="20" x2="3" y2="4"/>
+            <!-- Barra 1 — cierta -->
+            <rect x="5" y="14" width="3.5" height="6" rx="0.5" stroke-width="1.5"/>
+            <!-- Barra 2 — cierta -->
+            <rect x="10" y="10" width="3.5" height="10" rx="0.5" stroke-width="1.5"/>
+            <!-- Barra 3 — incierta (discontinua) -->
+            <line x1="15.5" y1="20" x2="15.5" y2="7" stroke-dasharray="2 1.8"/>
+            <!-- Interrogación sobre la barra 3 -->
+            <path d="M14.8 5.2 C14.8 4 16.2 3.4 17 4.2 S17.5 6 16.2 6.8" stroke-width="1.5"/>
+            <circle cx="16.2" cy="8.5" r="0.7" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="problem-text">
+          <h3>
+            <span class="lang-es">{es.problem.items[2].title}</span>
+            <span class="lang-en">{en.problem.items[2].title}</span>
+          </h3>
+          <p>
+            <span class="lang-es">{es.problem.items[2].desc}</span>
+            <span class="lang-en">{en.problem.items[2].desc}</span>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem-header {
+    margin-bottom: var(--space-12);
+    max-width: 640px;
+  }
+
+  .problem-header .section-title {
+    margin-bottom: 0;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-5);
+  }
+
+  @media (min-width: 768px) {
+    .problem-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  /* Tarjetas */
+  .problem-card {
+    background-color: #fff;
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-xl);
+    padding: var(--space-7, 1.75rem) var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  /* El número como primer elemento visual — anchor de cada tarjeta */
+  .problem-metric {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .metric-value {
+    font-size: var(--text-4xl);
+    font-weight: var(--weight-bold);
+    color: var(--texto);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+
+  /* El ? se muestra en naranja — denota incertidumbre */
+  .problem-metric-question .metric-value {
+    color: var(--acento);
+  }
+
+  .metric-unit {
+    font-size: 0.75rem;
+    color: var(--texto-sec);
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
+  }
+
+  /* Icono industrial */
+  .problem-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto);
+    opacity: 0.65;
+  }
+
+  /* Texto */
+  .problem-text h3 {
+    font-size: var(--text-base);
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    margin-bottom: var(--space-2);
+    letter-spacing: -0.02em;
+  }
+
+  .problem-text p {
+    font-size: 0.88rem;
+    color: var(--texto-sec);
+    line-height: 1.7;
+  }
+</style>

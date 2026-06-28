@@ -1,0 +1,87 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  lang?: string;
+}
+
+const {
+  title = 'ArcIntelligence — Programación robótica de soldadura con IA',
+  description = 'Sube un STEP, detecta juntas automáticamente, exporta el programa para KUKA o Universal Robots. Lo que tarda 4 horas, en menos de 2 minutos.',
+  lang = 'es',
+} = Astro.props;
+
+const titleEN = 'ArcIntelligence — AI-Powered Robotic Welding Programming';
+const descEN = 'Upload a STEP file, detect weld joints automatically, export a robot program for KUKA or Universal Robots. What takes 4 hours, in under 2 minutes.';
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- SEO primario (ES por defecto) -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="keywords" content="soldadura robótica, programación robot, KUKA, Universal Robots, STEP, ISO 2553, ISO 3834, IA, inteligencia artificial, RoboDK" />
+    <meta name="author" content="ArcIntelligence" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://arcintelligence.io/" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://arcintelligence.io/og-image.png" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://arcintelligence.io/og-image.png" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
+
+    <!-- Preconnect para rendimiento -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Space Grotesk: carácter técnico-industrial para todo el texto -->
+    <!-- JetBrains Mono: datos numéricos y elementos de código -->
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+
+    <!-- Script de idioma: corre antes del paint para evitar parpadeo -->
+    <script is:inline>
+      (function () {
+        const saved = localStorage.getItem('arc-lang');
+        const preferred = saved || (navigator.language.startsWith('en') ? 'en' : 'es');
+        document.documentElement.lang = preferred;
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+
+    <!-- Script de animaciones de scroll (Intersection Observer) -->
+    <script>
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('visible');
+            }
+          });
+        },
+        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
+      );
+
+      document.querySelectorAll('.fade-in').forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

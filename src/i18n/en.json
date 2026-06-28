@@ -1,0 +1,182 @@
+{
+  "nav": {
+    "features": "What it does",
+    "howItWorks": "How it works",
+    "contact": "Contact",
+    "cta": "Tell me your situation"
+  },
+  "hero": {
+    "h1": "Every new part, ready for the robot in minutes.",
+    "subtitle": "Reads STEP geometry, detects weldable joints, calculates ISO 2553 parameters and generates KRL or URScript — so your shop can take on more orders without adding headcount.",
+    "statLabel": "Setup time per new part",
+    "ctaPrimary": "Tell me about your shop",
+    "ctaSecondary": "See it in action",
+    "badges": {
+      "iso2553": "ISO 2553",
+      "iso3834": "ISO 3834",
+      "robots": "KUKA · Universal Robots",
+      "ai": "Powered by Claude AI"
+    }
+  },
+  "problem": {
+    "title": "The bottleneck holding your shop back isn't welding — it's what comes before",
+    "items": [
+      {
+        "metric": "4–8h",
+        "metricUnit": "per new part",
+        "title": "Every new part starts from scratch",
+        "desc": "Identify joints by eye, calculate parameters on paper, program the path point-by-point. Meanwhile, the robot waits and the order stays open."
+      },
+      {
+        "metric": "1",
+        "metricUnit": "single point of knowledge",
+        "title": "Critical knowledge with no backup",
+        "desc": "How to configure each part lives in one or two people's heads. When they're busy, on holiday, or handling another priority, the robot stops — not because the team lacks capability, but because that knowledge isn't documented or transferable."
+      },
+      {
+        "metric": "?",
+        "metricUnit": "hours · real cost",
+        "title": "Quoting without data",
+        "desc": "How long does it take to configure this part? How much wire and gas does it use? Without real calculation, every quote is an estimate. And an estimate isn't a price."
+      }
+    ]
+  },
+  "solution": {
+    "title": "From STEP file to robot program, in 4 steps",
+    "steps": [
+      {
+        "icon": "upload",
+        "title": "Load STEP",
+        "desc": "Upload the assembly directly from your CAD"
+      },
+      {
+        "icon": "scan",
+        "title": "Automatic detection",
+        "desc": "The system identifies all weldable joints — fillet, butt, corner, lap"
+      },
+      {
+        "icon": "gear",
+        "title": "ISO 2553 parameters",
+        "desc": "Effective throat, leg size, travel speed — calculated"
+      },
+      {
+        "icon": "download",
+        "title": "Export program",
+        "desc": "KUKA KRL or URScript, ready to load on the controller"
+      }
+    ]
+  },
+  "features": {
+    "title": "What it does",
+    "items": [
+      {
+        "title": "Geometric detection of weldable joints",
+        "desc": "Fillet, butt, corner, lap. The system analyzes the real STEP geometry and locates every weldable joint on the part mesh. Not bounding boxes or visual heuristics — geometric analysis on the actual model."
+      },
+      {
+        "title": "Built for someone who already knows how to weld",
+        "desc": "Click the joint. Adjust throat, leg, and travel speed. Execute. No four-step wizards, no redundant confirmations. The system assumes you can read a welding drawing — and behaves accordingly."
+      },
+      {
+        "title": "Your WPS parameters, applied in one click",
+        "desc": "Save your certified shop parameters and apply them to any joint. The next similar part inherits the configuration you've already validated."
+      },
+      {
+        "title": "Batch processing, unattended",
+        "desc": "Send dozens of STEP assemblies in a batch and let them process on their own. When you come back, the work is done."
+      },
+      {
+        "title": "Quote before you commit",
+        "desc": "Bead length, arc time, wire and gas consumption, total cost — calculated before striking an arc. Answer a new inquiry in minutes, not the next day."
+      },
+      {
+        "title": "ISO 3834 traceability, automatic",
+        "desc": "Full history of every bead, parameter, and part. Exportable to PDF or Excel for any quality audit, with no manual logging."
+      }
+    ]
+  },
+  "techstack": {
+    "title": "Built on robust technology"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "steps": [
+      {
+        "tag": "Step 1",
+        "title": "Load the assembly",
+        "desc": "Import any standard STEP file — the same one that comes out of your CAD. ArcIntelligence analyzes the real 3D geometry and automatically identifies all weldable joints: fillet, butt, corner, and lap.",
+        "placeholder": "Screenshot: ASSEMBLY tab with 3D view and highlighted detected joints"
+      },
+      {
+        "tag": "Step 2",
+        "title": "Parameters calculated",
+        "desc": "Select any detected joint. The system calculates effective throat, leg size, attack angle, travel speed, and gas flow per ISO 2553. Apply your certified WPS templates in one click.",
+        "placeholder": "Screenshot: PARAMETERS panel with ISO 2553 geometry and pre-calculated fields"
+      },
+      {
+        "tag": "Step 3",
+        "title": "The sequence, generated",
+        "desc": "Review the bead list in the side panel. ArcIntelligence proposes the optimal welding order and allows manual reordering based on your own process criteria.",
+        "placeholder": "Screenshot: Right panel with bead list and welding sequence"
+      },
+      {
+        "tag": "Step 4",
+        "title": "Export to the real controller",
+        "desc": "KUKA KRL or URScript. The file comes out ready to load directly into the controller — no additional transformations, no extra steps.",
+        "placeholder": "Screenshot: Export modal with KUKA / UR selector and download button"
+      }
+    ]
+  },
+  "comparison": {
+    "title": "New part setup: manual vs. with ArcIntelligence",
+    "manual": {
+      "label": "Manual setup",
+      "time": "4 – 8 h"
+    },
+    "arc": {
+      "label": "ArcIntelligence",
+      "time": "< 2 min"
+    },
+    "metrics": [
+      { "label": "Joint detection",  "before": "By eye",    "after": "Automatic"  },
+      { "label": "ISO 2553 calc.",   "before": "On paper",  "after": "Instant"    },
+      { "label": "Quoting",          "before": "Estimated", "after": "Calculated" },
+      { "label": "Traceability",     "before": "Manual",    "after": "Automatic"  }
+    ]
+  },
+  "marketFit": {
+    "title": "Is this for your shop?",
+    "subtitle": "ArcIntelligence isn't for everyone. It's for shops that already have robots — and want them producing more without setup being the ceiling on growth.",
+    "items": [
+      "You have RoboDK, RobotStudio or program directly on the controller, but configuring new parts is still the slowest step",
+      "Robotic setup knowledge is concentrated in one or two people, and you want more of your team able to handle it",
+      "You get varied orders frequently and need to quote with real data before committing",
+      "You want ISO 3834 traceability without deploying a full management system"
+    ]
+  },
+  "contact": {
+    "title": "Tell me about your shop",
+    "subtitle": "No pricing page, no generic demo. Tell me your robot, the parts you weld, and your monthly volume — and I'll tell you whether it makes sense for your specific situation.",
+    "form": {
+      "name": "Name",
+      "company": "Workshop or company",
+      "email": "Email",
+      "message": "Tell me",
+      "messagePlaceholder": "What robot you have, what parts you weld, how many new parts you get per month...",
+      "submit": "Send"
+    },
+    "direct": {
+      "intro": "Or directly:"
+    }
+  },
+  "footer": {
+    "tagline": "More robot working. Less robot waiting.",
+    "links": {
+      "home": "Home",
+      "features": "What it does",
+      "contact": "Contact"
+    },
+    "copyright": "© 2026 ArcIntelligence. All rights reserved.",
+    "disclaimer": "Independent project. Not affiliated with RoboDK, KUKA, Universal Robots, or Anthropic."
+  }
+}

@@ -1,0 +1,326 @@
+---
+import { Image } from 'astro:assets';
+import heroImg from '../images/hero.png';
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<section id="inicio" class="hero">
+  <!-- Trayectorias de soldadura en el fondo — sutiles, casi invisibles -->
+  <svg class="hero-bg-paths" viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <path class="weld-trace weld-trace-1"
+      d="M -80 380 C 180 180 360 480 620 290 S 940 360 1280 210"
+      stroke="#e07b39" stroke-width="1.5" fill="none"/>
+    <path class="weld-trace weld-trace-2"
+      d="M 0 500 C 220 340 420 540 680 400 S 980 490 1300 360"
+      stroke="#1a1a1a" stroke-width="1" fill="none"/>
+    <path class="weld-trace weld-trace-3"
+      d="M 100 160 C 280 280 500 100 720 220 S 1000 140 1200 260"
+      stroke="#e07b39" stroke-width="0.8" fill="none"/>
+    <circle cx="620" cy="290" r="3" fill="#e07b39" opacity="0.12"/>
+    <circle cx="360" cy="370" r="2" fill="#e07b39" opacity="0.08"/>
+    <circle cx="940" cy="310" r="2.5" fill="#e07b39" opacity="0.10"/>
+  </svg>
+
+  <div class="container hero-inner">
+
+    <!-- Columna texto — 40% -->
+    <div class="hero-text">
+      <div class="hero-eyebrow fade-in">
+        <span class="badge badge-accent">Beta · 2026</span>
+      </div>
+
+      <h1 class="hero-h1 fade-in fade-in-delay-1">
+        <span class="lang-es">{es.hero.h1}</span>
+        <span class="lang-en">{en.hero.h1}</span>
+      </h1>
+
+      <p class="hero-subtitle fade-in fade-in-delay-1">
+        <span class="lang-es">{es.hero.subtitle}</span>
+        <span class="lang-en">{en.hero.subtitle}</span>
+      </p>
+
+      <!-- Stat visual: "antes" tachado → "después" naranja + label de contexto -->
+      <div class="hero-stat fade-in fade-in-delay-2">
+        <div class="stat-numbers">
+          <span class="stat-before data-mono">4-8h</span>
+          <svg class="stat-arrow" width="20" height="20" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="2" stroke-linecap="round"
+               stroke-linejoin="round" aria-hidden="true">
+            <line x1="5" y1="12" x2="19" y2="12"/>
+            <polyline points="13 6 19 12 13 18"/>
+          </svg>
+          <span class="stat-after data-mono">&lt;2min</span>
+        </div>
+        <p class="stat-label lang-es">{es.hero.statLabel}</p>
+        <p class="stat-label lang-en">{en.hero.statLabel}</p>
+      </div>
+
+      <div class="hero-ctas fade-in fade-in-delay-3">
+        <a href="#contacto" class="btn btn-primary btn-lg lang-es">{es.hero.ctaPrimary}</a>
+        <a href="#contact"  class="btn btn-primary btn-lg lang-en">{en.hero.ctaPrimary}</a>
+        <a href="#como-funciona" class="btn btn-secondary btn-lg lang-es">{es.hero.ctaSecondary}</a>
+        <a href="#how-it-works"  class="btn btn-secondary btn-lg lang-en">{en.hero.ctaSecondary}</a>
+      </div>
+
+      <!-- Trust strip mínimo debajo de los CTAs -->
+      <div class="hero-trust fade-in fade-in-delay-3">
+        <span class="trust-item">ISO 2553</span>
+        <span class="trust-sep" aria-hidden="true">·</span>
+        <span class="trust-item">ISO 3834</span>
+        <span class="trust-sep" aria-hidden="true">·</span>
+        <span class="trust-item">KUKA · UR</span>
+      </div>
+    </div>
+
+    <!-- Columna visual — 60%, enmarcada como ventana de app real -->
+    <div class="hero-visual fade-in fade-in-delay-2">
+      <div class="app-window">
+        <!-- Barra macOS — señal inmediata de "esto es software" -->
+        <div class="app-window-bar" aria-hidden="true">
+          <span class="dot dot-red"></span>
+          <span class="dot dot-yellow"></span>
+          <span class="dot dot-green"></span>
+        </div>
+        <div class="app-window-body">
+          <Image
+            src={heroImg}
+            alt="ArcIntelligence — detección automática de juntas de soldadura"
+            class="hero-screenshot"
+            loading="eager"
+            quality={90}
+            widths={[480, 760, 1040]}
+            sizes="(max-width: 1023px) 100vw, 640px"
+          />
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* ── Hero shell ── */
+  .hero {
+    position: relative;
+    padding-top: calc(var(--nav-height) + var(--space-16));
+    padding-bottom: var(--space-16);
+    overflow: hidden;
+  }
+
+  /* ── Trayectorias SVG de fondo ── */
+  .hero-bg-paths {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .weld-trace { stroke-dasharray: 14 9; }
+
+  .weld-trace-1 { animation: traceDrift 28s linear infinite; opacity: 0.07; }
+  .weld-trace-2 { animation: traceDrift 38s linear infinite reverse; opacity: 0.04; }
+  .weld-trace-3 { animation: traceDrift 22s linear infinite 4s; opacity: 0.05; }
+
+  @keyframes traceDrift {
+    from { stroke-dashoffset: 0; }
+    to   { stroke-dashoffset: -120; }
+  }
+
+  /* ── Layout 40/60 ── */
+  .hero-inner {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-inner {
+      grid-template-columns: 2fr 3fr; /* 40 / 60 */
+      gap: var(--space-12);
+    }
+  }
+
+  /* ── Columna texto ── */
+  .hero-eyebrow {
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-h1 {
+    font-size: clamp(1.75rem, 3.8vw, 2.8rem);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.035em;
+    line-height: 1.1;
+    color: var(--texto);
+    margin-bottom: var(--space-4);
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+    color: var(--texto-sec);
+    line-height: 1.7;
+    margin-bottom: var(--space-6);
+  }
+
+  /* ── Stat visual 4-8h → <2min ── */
+  .hero-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4) 0;
+    margin-bottom: var(--space-7);
+    border-top: 1px solid var(--borde);
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .stat-numbers {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  .stat-label {
+    font-size: 0.65rem;
+    color: var(--texto-sec);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+  }
+
+  .stat-before {
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    font-weight: var(--weight-bold);
+    color: var(--texto-sec);
+    opacity: 0.55;
+    text-decoration: line-through;
+    text-decoration-color: rgba(107,107,107,0.4);
+    text-decoration-thickness: 2px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  .stat-arrow {
+    color: var(--borde);
+    flex-shrink: 0;
+  }
+
+  .stat-after {
+    font-size: clamp(2.2rem, 4.2vw, 3rem);
+    font-weight: var(--weight-bold);
+    color: var(--acento);
+    letter-spacing: -0.04em;
+    line-height: 1;
+  }
+
+  /* ── CTAs ── */
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
+  }
+
+  /* ── Trust strip ── */
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    font-size: 0.67rem;
+    font-weight: var(--weight-medium);
+    color: var(--texto-sec);
+    font-family: var(--font-mono);
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+  }
+
+  .trust-sep {
+    color: var(--borde);
+    font-size: 0.75rem;
+    opacity: 0.8;
+  }
+
+  /* ── Columna visual ── */
+  .hero-visual {
+    position: relative;
+  }
+
+  /* Ventana de app — da contexto inmediato de "software funcionando" */
+  .app-window {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--borde);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.05),
+      0 12px 32px rgba(0,0,0,0.10),
+      0 32px 80px rgba(0,0,0,0.14);
+    transform: perspective(1400px) rotateY(-4deg);
+    transform-origin: left center;
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.9s ease;
+  }
+
+  .app-window:hover {
+    transform: perspective(1400px) rotateY(-1deg);
+    box-shadow:
+      0 2px 4px rgba(0,0,0,0.04),
+      0 18px 44px rgba(0,0,0,0.12),
+      0 48px 100px rgba(0,0,0,0.14);
+  }
+
+  /* Barra macOS */
+  .app-window-bar {
+    background-color: #ebe8e3;
+    border-bottom: 1px solid var(--borde);
+    padding: 9px 14px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-shrink: 0;
+  }
+
+  .dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot-red    { background-color: #ff5f56; }
+  .dot-yellow { background-color: #ffbd2e; }
+  .dot-green  { background-color: #27c93f; }
+
+  /* Elimina el espacio blanco bajo el img */
+  .app-window-body {
+    display: block;
+    line-height: 0;
+  }
+
+  .hero-screenshot {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* En móvil, quitar la rotación — queda raro sin el contexto 2-columna */
+  @media (max-width: 1023px) {
+    .app-window {
+      transform: none;
+      box-shadow:
+        0 2px 4px rgba(0,0,0,0.04),
+        0 8px 24px rgba(0,0,0,0.09),
+        0 20px 48px rgba(0,0,0,0.10);
+    }
+    .app-window:hover {
+      transform: none;
+    }
+  }
+</style>

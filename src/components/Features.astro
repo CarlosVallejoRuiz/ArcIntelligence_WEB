@@ -1,0 +1,299 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+
+// Iconos SVG custom — temática soldadura/robótica, no Lucide
+// stroke 1.75px, sin fill, monocromos
+const icons = [
+  // 0 — Detección de juntas: sección transversal de junta T con scan
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <line x1="12" y1="3" x2="12" y2="14"/>
+    <line x1="5" y1="14" x2="19" y2="14"/>
+    <path d="M9 14 L12 10.5 L15 14"/>
+    <circle cx="12" cy="14" r="5.5" stroke-dasharray="2.5 2.5" stroke-width="1.25"/>
+    <circle cx="12" cy="14" r="1.5" fill="currentColor" opacity="0.5"/>
+  </svg>`,
+
+  // 1 — Modo experto: mira de precisión
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="12" cy="12" r="7"/>
+    <circle cx="12" cy="12" r="2"/>
+    <line x1="3" y1="12" x2="7.5" y2="12"/>
+    <line x1="16.5" y1="12" x2="21" y2="12"/>
+    <line x1="12" y1="3" x2="12" y2="7.5"/>
+    <line x1="12" y1="16.5" x2="12" y2="21"/>
+  </svg>`,
+
+  // 2 — WPS templates: documento con símbolo de junta ISO 2553
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="5" y="4" width="14" height="17" rx="2"/>
+    <line x1="9" y1="9" x2="15" y2="9"/>
+    <path d="M9 13 L11.5 10.5 L14 13"/>
+    <line x1="9" y1="13" x2="14" y2="13"/>
+    <line x1="9" y1="17" x2="15" y2="17"/>
+  </svg>`,
+
+  // 3 — Batch: cola de archivos fluyendo
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="2" y="9" width="8" height="10" rx="1.5"/>
+    <rect x="4" y="6" width="8" height="10" rx="1.5"/>
+    <rect x="6" y="3" width="8" height="10" rx="1.5"/>
+    <polyline points="17,8 21,12 17,16"/>
+    <line x1="14" y1="12" x2="21" y2="12"/>
+  </svg>`,
+
+  // 4 — Presupuestación: cronómetro + símbolo de coste
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="10" cy="13" r="6.5"/>
+    <polyline points="10,9 10,13 13,13"/>
+    <rect x="9" y="3.5" width="2.5" height="1.5" rx="0.5"/>
+    <line x1="10.25" y1="5" x2="10.25" y2="6.5"/>
+    <line x1="17.5" y1="8" x2="19.5" y2="8"/>
+    <path d="M18.5 6a2.5 2.5 0 0 1 0 4.5"/>
+    <line x1="17" y1="9" x2="20" y2="9"/>
+  </svg>`,
+
+  // 5 — ISO 3834 trazabilidad: cadena de auditoría
+  `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/>
+    <polyline points="14,2 14,8 20,8"/>
+    <line x1="9" y1="11" x2="9" y2="19"/>
+    <circle cx="9" cy="11" r="1.8" fill="currentColor" opacity="0.8" stroke="none"/>
+    <circle cx="9" cy="15" r="1.8" fill="currentColor" opacity="0.5" stroke="none"/>
+    <circle cx="9" cy="19" r="1.8" fill="currentColor" opacity="0.3" stroke="none"/>
+    <line x1="12" y1="11" x2="17" y2="11"/>
+    <line x1="12" y1="15" x2="17" y2="15"/>
+    <line x1="12" y1="19" x2="15" y2="19"/>
+  </svg>`,
+];
+
+// Clases de posición en el bento grid
+const bentoClasses = [
+  'feature-ai',      // 0 — featured: 2x2
+  'feature-expert',  // 1 — normal: 2x1
+  'feature-wps',     // 2 — normal: 2x1
+  'feature-batch',   // 3 — pequeña: 1x1
+  'feature-quote',   // 4 — pequeña: 1x1
+  'feature-iso',     // 5 — normal: 2x1
+];
+---
+
+<section id="caracteristicas" class="bg-panel">
+  <div class="container" id="features">
+    <div class="features-header fade-in">
+      <h2 class="section-title lang-es">{es.features.title}</h2>
+      <h2 class="section-title lang-en">{en.features.title}</h2>
+    </div>
+
+    <!-- Bento grid asimétrico: 4 columnas, 3 filas en desktop -->
+    <div class="features-bento">
+
+      <!-- Card 0: AI Detection — FEATURED (2 cols × 2 filas) -->
+      <div class={`feature-card ${bentoClasses[0]} fade-in`}>
+        <div class="feature-icon feature-icon-lg" set:html={icons[0]} />
+        <h3>
+          <span class="lang-es">{es.features.items[0].title}</span>
+          <span class="lang-en">{en.features.items[0].title}</span>
+        </h3>
+        <p>
+          <span class="lang-es">{es.features.items[0].desc}</span>
+          <span class="lang-en">{en.features.items[0].desc}</span>
+        </p>
+        <!-- Visualización mini de junta detectada — solo en la card destacada -->
+        <div class="feature-visual" aria-hidden="true">
+          <svg width="100%" height="80" viewBox="0 0 200 80" fill="none">
+            <!-- Placa L simplificada -->
+            <rect x="20" y="30" width="80" height="12" rx="2" fill="#e0dbd4" stroke="#c4bdb5" stroke-width="0.8"/>
+            <rect x="62" y="10" width="12" height="32" rx="2" fill="#ebe8e3" stroke="#c4bdb5" stroke-width="0.8"/>
+            <!-- Junta detectada -->
+            <circle cx="62" cy="42" r="5" fill="#e07b39" opacity="0.9"/>
+            <circle cx="62" cy="42" r="9" fill="none" stroke="#e07b39" stroke-width="1" stroke-dasharray="2 2" opacity="0.5"/>
+            <line x1="20" y1="42" x2="55" y2="42" stroke="#e07b39" stroke-width="1.5" opacity="0.4"/>
+            <!-- Label -->
+            <rect x="72" y="37" width="42" height="12" rx="3" fill="#e07b39" opacity="0.9"/>
+            <text x="93" y="47" font-size="6.5" fill="white" text-anchor="middle" font-family="monospace" font-weight="600">filete · 6mm</text>
+            <!-- Segunda junta sutil -->
+            <circle cx="100" cy="30" r="3" fill="#e07b39" opacity="0.3"/>
+            <!-- Robot path -->
+            <path d="M 140 20 C 160 30 165 50 155 62" stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.15" stroke-dasharray="3 2"/>
+            <circle cx="140" cy="20" r="3" fill="#1a1a1a" opacity="0.12"/>
+            <circle cx="155" cy="62" r="3" fill="#1a1a1a" opacity="0.12"/>
+            <!-- "Robot" simplified arm -->
+            <rect x="148" y="60" width="16" height="8" rx="2" fill="none" stroke="#1a1a1a" stroke-width="0.8" opacity="0.18"/>
+          </svg>
+        </div>
+        <!-- Stat clave -->
+        <div class="feature-stat">
+          <span class="data-mono stat-number lang-es">Auto</span>
+          <span class="data-mono stat-number lang-en">Auto</span>
+          <span class="stat-label lang-es">detección ISO 2553</span>
+          <span class="stat-label lang-en">ISO 2553 detection</span>
+        </div>
+      </div>
+
+      <!-- Cards 1-5: normales y pequeñas -->
+      {[1,2,3,4,5].map((i) => (
+        <div class={`feature-card ${bentoClasses[i]} fade-in fade-in-delay-${i}`}>
+          <div class="feature-icon" set:html={icons[i]} />
+          <h3>
+            <span class="lang-es">{es.features.items[i].title}</span>
+            <span class="lang-en">{en.features.items[i].title}</span>
+          </h3>
+          <p>
+            <span class="lang-es">{es.features.items[i].desc}</span>
+            <span class="lang-en">{en.features.items[i].desc}</span>
+          </p>
+        </div>
+      ))}
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-header {
+    margin-bottom: var(--space-10);
+  }
+
+  .features-header .section-title {
+    margin-bottom: 0;
+  }
+
+  /* ── Bento Grid ── */
+  .features-bento {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  /* Tablet: 2 columnas, featured ocupa ambas */
+  @media (min-width: 640px) {
+    .features-bento {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .feature-ai {
+      grid-column: 1 / -1; /* full width en tablet */
+    }
+  }
+
+  /* Desktop: 4 columnas, layout bento completo */
+  @media (min-width: 1024px) {
+    .features-bento {
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(3, auto);
+    }
+
+    /* Featured: 2 cols × 2 filas — esquina superior izquierda */
+    .feature-ai {
+      grid-column: 1 / 3;
+      grid-row: 1 / 3;
+    }
+
+    /* Fila 1 derecha */
+    .feature-expert { grid-column: 3 / 5; grid-row: 1; }
+    /* Fila 2 derecha */
+    .feature-wps    { grid-column: 3 / 5; grid-row: 2; }
+
+    /* Fila 3: pequeñas + una normal */
+    .feature-batch  { grid-column: 1 / 2; grid-row: 3; }
+    .feature-quote  { grid-column: 2 / 3; grid-row: 3; }
+    .feature-iso    { grid-column: 3 / 5; grid-row: 3; }
+  }
+
+  /* ── Tarjetas base ── */
+  .feature-card {
+    background-color: #fff;
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-xl);
+    padding: var(--space-6);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    transition: border-color var(--transition-normal);
+  }
+
+  .feature-card:hover {
+    border-color: rgba(224,123,57,0.3);
+  }
+
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--texto);
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  /* Icono más grande en la card destacada */
+  .feature-icon-lg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .feature-card h3 {
+    font-size: 0.95rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .feature-card p {
+    font-size: 0.83rem;
+    color: var(--texto-sec);
+    line-height: 1.7;
+  }
+
+  /* ── Card destacada: contenido extra ── */
+  .feature-ai {
+    background-color: #fffcfa; /* levemente más cálido */
+  }
+
+  .feature-ai h3 {
+    font-size: var(--text-xl);
+    letter-spacing: -0.025em;
+  }
+
+  .feature-ai p {
+    font-size: 0.9rem;
+    max-width: 480px;
+  }
+
+  /* Mini visualización */
+  .feature-visual {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--borde);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3);
+    overflow: hidden;
+    margin-top: var(--space-2);
+    flex: 1;
+  }
+
+  /* Stat de la card featured */
+  .feature-stat {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-2);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--borde);
+    margin-top: auto;
+  }
+
+  .stat-number {
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    color: var(--acento);
+    letter-spacing: -0.02em;
+  }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--texto-sec);
+    font-family: var(--font-mono);
+  }
+</style>

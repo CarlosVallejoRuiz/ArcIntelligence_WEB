@@ -1,0 +1,317 @@
+@import './variables.css';
+
+/* ─────────────── Reset y base ─────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px; /* base 18px — más legible para contexto industrial */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--texto);
+  background-color: var(--bg-principal);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, video {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+/* ─────────────── i18n ─────────────── */
+html[lang="en"] .lang-es { display: none !important; }
+html[lang="es"] .lang-en { display: none !important; }
+
+/* ─────────────── Layout ─────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.container-narrow {
+  width: 100%;
+  max-width: var(--max-width-narrow);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .container,
+  .container-narrow {
+    padding-inline: var(--space-10);
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding-inline: var(--space-12);
+  }
+}
+
+/* ─────────────── Tipografía ─────────────── */
+h1, h2, h3, h4 {
+  line-height: 1.15;
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.025em;
+  color: var(--texto);
+}
+
+.section-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-bold);
+  letter-spacing: -0.03em;
+  color: var(--texto);
+  margin-bottom: var(--space-5);
+}
+
+@media (min-width: 768px) {
+  .section-title {
+    font-size: var(--text-4xl);
+  }
+}
+
+.section-subtitle {
+  font-size: 1rem;
+  color: var(--texto-sec);
+  line-height: 1.7;
+  max-width: 560px;
+}
+
+/* Números y datos técnicos en monoespaciado */
+.data-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum";
+  letter-spacing: -0.02em;
+}
+
+/* ─────────────── Secciones ─────────────── */
+section {
+  padding-block: var(--space-20);
+}
+
+@media (min-width: 768px) {
+  section {
+    padding-block: var(--space-24);
+  }
+}
+
+section.bg-panel {
+  background-color: var(--bg-panel);
+}
+
+section.bg-dark {
+  background-color: var(--bg-dark);
+  color: var(--texto-on-dark);
+}
+
+section.bg-dark h1,
+section.bg-dark h2,
+section.bg-dark h3 {
+  color: var(--texto-on-dark);
+}
+
+/* ─────────────── Botones ─────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--radius-md);
+  font-size: 0.9rem;
+  font-weight: var(--weight-semibold);
+  font-family: var(--font-sans);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    transform 200ms var(--ease-out-expo),
+    box-shadow var(--transition-fast);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  border: 1.5px solid transparent;
+  letter-spacing: -0.01em;
+}
+
+.btn-primary {
+  background-color: var(--acento);
+  color: #fff;
+  border-color: var(--acento);
+}
+
+.btn-primary:hover {
+  background-color: var(--acento-hover);
+  border-color: var(--acento-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(224,123,57,0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--texto);
+  border-color: var(--borde);
+}
+
+.btn-secondary:hover {
+  border-color: var(--texto);
+}
+
+.btn-lg {
+  padding: var(--space-4) var(--space-8);
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+}
+
+/* ─────────────── Animaciones de scroll ─────────────── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out-expo), transform 0.7s var(--ease-out-expo);
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-in-delay-1 { transition-delay: 0.08s; }
+.fade-in-delay-2 { transition-delay: 0.16s; }
+.fade-in-delay-3 { transition-delay: 0.24s; }
+.fade-in-delay-4 { transition-delay: 0.32s; }
+.fade-in-delay-5 { transition-delay: 0.40s; }
+
+/* ─────────────── Badge ─────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 3px var(--space-3);
+  background-color: var(--bg-panel);
+  border: 1px solid var(--borde);
+  border-radius: 100px;
+  font-size: 0.72rem;
+  font-weight: var(--weight-semibold);
+  color: var(--texto-sec);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.badge-accent {
+  background-color: rgba(224,123,57,0.08);
+  border-color: rgba(224,123,57,0.25);
+  color: var(--acento);
+}
+
+/* ─────────────── Placeholder de screenshots ─────────────── */
+.screenshot-placeholder {
+  background-color: var(--bg-panel);
+  border: 2px dashed var(--borde);
+  border-radius: var(--radius-xl);
+  padding: var(--space-12) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  text-align: center;
+  color: var(--texto-sec);
+  min-height: 300px;
+}
+
+.placeholder-icon {
+  width: 44px;
+  height: 44px;
+  opacity: 0.35;
+  color: var(--texto-sec);
+}
+
+.placeholder-label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--acento);
+  font-weight: var(--weight-semibold);
+}
+
+.placeholder-desc {
+  font-size: 0.78rem;
+  color: var(--texto-sec);
+  max-width: 280px;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+/* ─────────────── Formulario ─────────────── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.form-group label {
+  font-size: 0.83rem;
+  font-weight: var(--weight-medium);
+  color: var(--texto);
+  letter-spacing: -0.01em;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background-color: #fff;
+  border: 1.5px solid var(--borde);
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  color: var(--texto);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  outline: none;
+  line-height: 1.5;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--acento);
+  box-shadow: 0 0 0 3px rgba(224,123,57,0.10);
+}
+
+.form-group textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: var(--texto-sec);
+  opacity: 0.6;
+}

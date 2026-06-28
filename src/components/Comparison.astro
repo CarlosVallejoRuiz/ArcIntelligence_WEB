@@ -1,0 +1,282 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<!-- Sección oscura — la única en toda la landing. Ruptura visual intencional. -->
+<section class="bg-dark" id="comparacion">
+  <div class="container">
+
+    <!-- Título -->
+    <div class="cmp-header fade-in">
+      <h2 class="section-title lang-es">{es.comparison.title}</h2>
+      <h2 class="section-title lang-en">{en.comparison.title}</h2>
+    </div>
+
+    <!-- Timeline visual — las barras se animan al entrar en viewport -->
+    <div class="cmp-timeline fade-in fade-in-delay-1" id="cmp-timeline">
+
+      <!-- Fila manual -->
+      <div class="timeline-row">
+        <div class="timeline-meta">
+          <span class="timeline-name lang-es">{es.comparison.manual.label}</span>
+          <span class="timeline-name lang-en">{en.comparison.manual.label}</span>
+          <span class="timeline-time data-mono lang-es">{es.comparison.manual.time}</span>
+          <span class="timeline-time data-mono lang-en">{en.comparison.manual.time}</span>
+        </div>
+        <div class="timeline-track">
+          <div class="timeline-bar bar-manual" style="--target: 85%"></div>
+        </div>
+      </div>
+
+      <!-- Divisor -->
+      <div class="timeline-divider" aria-hidden="true"></div>
+
+      <!-- Fila ArcIntelligence -->
+      <div class="timeline-row timeline-row-arc">
+        <div class="timeline-meta">
+          <span class="timeline-name timeline-name-arc">ArcIntelligence</span>
+          <span class="timeline-time data-mono timeline-time-arc lang-es">{es.comparison.arc.time}</span>
+          <span class="timeline-time data-mono timeline-time-arc lang-en">{en.comparison.arc.time}</span>
+        </div>
+        <div class="timeline-track">
+          <div class="timeline-bar bar-arc" style="--target: 5%"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Métricas: before → after -->
+    <div class="cmp-metrics fade-in fade-in-delay-2">
+      <!-- ES -->
+      <div class="lang-es metrics-grid">
+        {es.comparison.metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric-label">{m.label}</span>
+            <div class="metric-change">
+              <span class="metric-before">{m.before}</span>
+              <span class="metric-arrow" aria-hidden="true">→</span>
+              <span class="metric-after">{m.after}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+      <!-- EN -->
+      <div class="lang-en metrics-grid">
+        {en.comparison.metrics.map((m) => (
+          <div class="metric-item">
+            <span class="metric-label">{m.label}</span>
+            <div class="metric-change">
+              <span class="metric-before">{m.before}</span>
+              <span class="metric-arrow" aria-hidden="true">→</span>
+              <span class="metric-after">{m.after}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  /* Hereda bg-dark de global.css */
+
+  /* ── Cabecera ── */
+  .cmp-header {
+    margin-bottom: var(--space-12);
+  }
+
+  .cmp-header .section-title {
+    margin-bottom: 0;
+    color: var(--texto-on-dark);
+  }
+
+  /* ── Timeline ── */
+  .cmp-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    margin-bottom: var(--space-12);
+  }
+
+  .timeline-row {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .timeline-row {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-6);
+    }
+  }
+
+  /* Metadatos: nombre + tiempo */
+  .timeline-meta {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    flex-shrink: 0;
+    min-width: 240px;
+  }
+
+  .timeline-name {
+    font-size: 0.78rem;
+    font-weight: var(--weight-medium);
+    color: var(--texto-sec-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .timeline-name-arc {
+    color: var(--texto-on-dark);
+  }
+
+  .timeline-time {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--texto-sec-dark);
+    letter-spacing: -0.03em;
+    line-height: 1;
+  }
+
+  .timeline-time-arc {
+    color: var(--acento);
+    font-size: var(--text-3xl);
+  }
+
+  /* Track de barra */
+  .timeline-track {
+    flex: 1;
+    height: 10px;
+    background-color: rgba(240,237,232,0.06);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .timeline-bar {
+    height: 100%;
+    width: 0; /* empieza en 0, animado por JS */
+    border-radius: 10px;
+    transition: none;
+  }
+
+  .bar-manual {
+    background-color: rgba(240,237,232,0.15);
+  }
+
+  .bar-arc {
+    background-color: var(--acento);
+    box-shadow: 0 0 16px rgba(224,123,57,0.5);
+  }
+
+  /* Clases añadidas por IntersectionObserver */
+  .cmp-animated .bar-manual {
+    animation: barGrow 1.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards;
+  }
+
+  .cmp-animated .bar-arc {
+    animation: barGrow 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
+  }
+
+  @keyframes barGrow {
+    from { width: 0; }
+    to   { width: var(--target); }
+  }
+
+  /* Divisor horizontal entre filas */
+  .timeline-divider {
+    height: 1px;
+    background-color: var(--borde-dark);
+  }
+
+  /* ── Métricas ── */
+  .cmp-metrics {
+    padding-top: var(--space-10);
+    border-top: 1px solid var(--borde-dark);
+  }
+
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 640px) {
+    .metrics-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .metrics-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .metric-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border: 1px solid var(--borde-dark);
+    border-radius: var(--radius-lg);
+  }
+
+  .metric-label {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto-sec-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: var(--font-mono);
+  }
+
+  .metric-change {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+  }
+
+  .metric-before {
+    font-size: 0.83rem;
+    color: var(--texto-sec-dark);
+    text-decoration: line-through;
+    text-decoration-color: rgba(240,237,232,0.2);
+  }
+
+  .metric-arrow {
+    font-size: 0.78rem;
+    color: var(--borde-dark);
+  }
+
+  .metric-after {
+    font-size: 0.9rem;
+    font-weight: var(--weight-semibold);
+    color: var(--acento);
+    font-family: var(--font-mono);
+  }
+</style>
+
+<script>
+  /* Activa la animación de barras cuando la sección entra en viewport */
+  const timeline = document.getElementById('cmp-timeline');
+  if (timeline) {
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          timeline.classList.add('cmp-animated');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.35 }
+    );
+    obs.observe(timeline);
+  }
+</script>

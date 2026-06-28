@@ -1,0 +1,139 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<section id="como-funciona" class="bg-panel">
+  <div id="how-it-works">
+    <div class="container">
+      <div class="hiw-header fade-in">
+        <h2 class="section-title lang-es">{es.howItWorks.title}</h2>
+        <h2 class="section-title lang-en">{en.howItWorks.title}</h2>
+      </div>
+
+      <div class="hiw-steps">
+        {es.howItWorks.steps.map((_, i) => (
+          <div class={`hiw-step fade-in ${i % 2 === 0 ? 'hiw-step-normal' : 'hiw-step-reversed'}`}>
+            <!-- Texto -->
+            <div class="hiw-text">
+              <span class="hiw-tag">
+                <span class="lang-es">{es.howItWorks.steps[i].tag}</span>
+                <span class="lang-en">{en.howItWorks.steps[i].tag}</span>
+              </span>
+              <h3>
+                <span class="lang-es">{es.howItWorks.steps[i].title}</span>
+                <span class="lang-en">{en.howItWorks.steps[i].title}</span>
+              </h3>
+              <p>
+                <span class="lang-es">{es.howItWorks.steps[i].desc}</span>
+                <span class="lang-en">{en.howItWorks.steps[i].desc}</span>
+              </p>
+            </div>
+
+            <!-- Screenshot placeholder -->
+            <div class="hiw-visual">
+              {/* SCREENSHOT PLACEHOLDER — reemplazar con <img> cuando el asset esté disponible */}
+              <div class="screenshot-placeholder">
+                <svg class="placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                  <rect x="4" y="8" width="40" height="28" rx="3"/>
+                  <line x1="4" y1="38" x2="44" y2="38"/>
+                  <line x1="20" y1="38" x2="28" y2="44"/>
+                  <line x1="16" y1="44" x2="32" y2="44"/>
+                  <circle cx="24" cy="22" r="6" stroke-dasharray="3 2"/>
+                </svg>
+                <span class="placeholder-label lang-es">Captura pendiente</span>
+                <span class="placeholder-label lang-en">Screenshot pending</span>
+                <span class="placeholder-desc lang-es">{es.howItWorks.steps[i].placeholder}</span>
+                <span class="placeholder-desc lang-en">{en.howItWorks.steps[i].placeholder}</span>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hiw-header {
+    text-align: center;
+    margin-bottom: var(--space-16);
+  }
+
+  .hiw-header .section-title {
+    margin-bottom: 0;
+  }
+
+  .hiw-steps {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  /* Cada paso: texto + visual (zigzag en desktop) */
+  .hiw-step {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-8);
+    align-items: center;
+  }
+
+  @media (min-width: 768px) {
+    .hiw-step {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12);
+    }
+
+    .hiw-step-reversed .hiw-text { order: 2; }
+    .hiw-step-reversed .hiw-visual { order: 1; }
+  }
+
+  /* Texto */
+  .hiw-tag {
+    display: inline-block;
+    font-size: var(--text-xs);
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-mono);
+    color: var(--acento);
+    background-color: rgba(224,123,57,0.08);
+    border: 1px solid rgba(224,123,57,0.2);
+    border-radius: 100px;
+    padding: var(--space-1) var(--space-3);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: var(--space-3);
+  }
+
+  .hiw-text h3 {
+    font-size: var(--text-2xl);
+    font-weight: var(--weight-bold);
+    color: var(--texto);
+    margin-bottom: var(--space-4);
+    line-height: 1.3;
+  }
+
+  .hiw-text p {
+    font-size: var(--text-base);
+    color: var(--texto-sec);
+    line-height: 1.75;
+  }
+
+  /* Visual */
+  .hiw-visual {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+  }
+
+  /* Desc del placeholder */
+  .placeholder-desc {
+    font-size: var(--text-xs);
+    color: var(--texto-sec);
+    font-style: italic;
+    max-width: 280px;
+    line-height: 1.5;
+  }
+
+  .screenshot-placeholder {
+    min-height: 300px;
+  }
+</style>

@@ -1,0 +1,146 @@
+---
+import es from '../i18n/es.json';
+import en from '../i18n/en.json';
+---
+
+<footer>
+  <div class="container footer-inner">
+    <!-- Columna izquierda: logo + tagline -->
+    <div class="footer-brand">
+      <a href="#inicio" class="footer-logo" aria-label="ArcIntelligence">
+        <span class="logo-arc">Arc</span><span class="logo-intelligence">Intelligence</span>
+      </a>
+      <p class="footer-tagline lang-es">{es.footer.tagline}</p>
+      <p class="footer-tagline lang-en">{en.footer.tagline}</p>
+    </div>
+
+    <!-- Columna derecha: links -->
+    <nav class="footer-nav" aria-label="Footer navigation">
+      <ul role="list">
+        <li>
+          <a href="#inicio" class="lang-es">{es.footer.links.home}</a>
+          <a href="#inicio" class="lang-en">{en.footer.links.home}</a>
+        </li>
+        <li>
+          <a href="#caracteristicas" class="lang-es">{es.footer.links.features}</a>
+          <a href="#features" class="lang-en">{en.footer.links.features}</a>
+        </li>
+        <li>
+          <a href="#contacto" class="lang-es">{es.footer.links.contact}</a>
+          <a href="#contact" class="lang-en">{en.footer.links.contact}</a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+
+  <!-- Bottom bar -->
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p class="lang-es">{es.footer.copyright}</p>
+      <p class="lang-en">{en.footer.copyright}</p>
+      <p class="footer-disclaimer lang-es">{es.footer.disclaimer}</p>
+      <p class="footer-disclaimer lang-en">{en.footer.disclaimer}</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  footer {
+    background-color: var(--texto);
+    color: rgba(255,255,255,0.75);
+    padding-top: var(--space-16);
+  }
+
+  .footer-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    padding-bottom: var(--space-12);
+  }
+
+  @media (min-width: 640px) {
+    .footer-inner {
+      grid-template-columns: 1fr auto;
+      align-items: start;
+    }
+  }
+
+  /* Marca */
+  .footer-logo {
+    display: inline-flex;
+    font-size: var(--text-xl);
+    font-weight: var(--weight-bold);
+    margin-bottom: var(--space-3);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .logo-arc {
+    color: rgba(255,255,255,0.9);
+  }
+
+  .logo-intelligence {
+    color: var(--acento);
+  }
+
+  .footer-tagline {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.5);
+    max-width: 280px;
+    line-height: 1.6;
+  }
+
+  /* Nav */
+  .footer-nav ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer-nav a {
+    font-size: var(--text-sm);
+    color: rgba(255,255,255,0.6);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+
+  .footer-nav a:hover {
+    color: #fff;
+  }
+
+  /* Bottom bar */
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-block: var(--space-6);
+  }
+
+  .footer-bottom-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .footer-bottom p {
+    font-size: var(--text-xs);
+    color: rgba(255,255,255,0.4);
+  }
+
+  .footer-disclaimer {
+    max-width: 480px;
+    text-align: left;
+  }
+
+  @media (min-width: 768px) {
+    .footer-disclaimer {
+      text-align: right;
+    }
+  }
+</style>
