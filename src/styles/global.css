@@ -230,45 +230,6 @@ section.bg-dark h3 {
   color: var(--acento);
 }
 
-/* ─────────────── Placeholder de screenshots ─────────────── */
-.screenshot-placeholder {
-  background-color: var(--bg-panel);
-  border: 2px dashed var(--borde);
-  border-radius: var(--radius-xl);
-  padding: var(--space-12) var(--space-8);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  text-align: center;
-  color: var(--texto-sec);
-  min-height: 300px;
-}
-
-.placeholder-icon {
-  width: 44px;
-  height: 44px;
-  opacity: 0.35;
-  color: var(--texto-sec);
-}
-
-.placeholder-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--acento);
-  font-weight: var(--weight-semibold);
-}
-
-.placeholder-desc {
-  font-size: 0.78rem;
-  color: var(--texto-sec);
-  max-width: 280px;
-  line-height: 1.5;
-  font-style: italic;
-}
 
 /* ─────────────── Formulario ─────────────── */
 .form-group {

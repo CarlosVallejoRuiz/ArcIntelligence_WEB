@@ -14,6 +14,7 @@ import en from '../i18n/en.json';
       <div class="hiw-steps">
         {es.howItWorks.steps.map((_, i) => (
           <div class={`hiw-step fade-in ${i % 2 === 0 ? 'hiw-step-normal' : 'hiw-step-reversed'}`}>
+
             <!-- Texto -->
             <div class="hiw-text">
               <span class="hiw-tag">
@@ -30,22 +31,341 @@ import en from '../i18n/en.json';
               </p>
             </div>
 
-            <!-- Screenshot placeholder -->
+            <!-- Mockup ilustrado — HTML/CSS/SVG puro, sin imágenes externas -->
             <div class="hiw-visual">
-              {/* SCREENSHOT PLACEHOLDER — reemplazar con <img> cuando el asset esté disponible */}
-              <div class="screenshot-placeholder">
-                <svg class="placeholder-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-                  <rect x="4" y="8" width="40" height="28" rx="3"/>
-                  <line x1="4" y1="38" x2="44" y2="38"/>
-                  <line x1="20" y1="38" x2="28" y2="44"/>
-                  <line x1="16" y1="44" x2="32" y2="44"/>
-                  <circle cx="24" cy="22" r="6" stroke-dasharray="3 2"/>
-                </svg>
-                <span class="placeholder-label lang-es">Captura pendiente</span>
-                <span class="placeholder-label lang-en">Screenshot pending</span>
-                <span class="placeholder-desc lang-es">{es.howItWorks.steps[i].placeholder}</span>
-                <span class="placeholder-desc lang-en">{en.howItWorks.steps[i].placeholder}</span>
-              </div>
+
+              {/* ────────────────────────────────────────────────────
+                  PASO 1 — Detección de juntas soldables
+                  Wireframe de pieza en T con pulso en las juntas
+              ──────────────────────────────────────────────────── */}
+              {i === 0 && (
+                <div class="step-mockup">
+                  <svg viewBox="0 0 320 200" class="detection-svg"
+                       aria-label="Ilustración: pieza en T con 2 juntas detectadas" role="img">
+                    <defs>
+                      {/* Trama de cuadrícula CAD muy sutil */}
+                      <pattern id="hiw-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#e8e3dc" stroke-width="0.5"/>
+                      </pattern>
+                      {/* Gradiente para el rastro del escáner */}
+                      <linearGradient id="hiw-scan-grad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%"   stop-color="#e07b39" stop-opacity="0"/>
+                        <stop offset="50%"  stop-color="#e07b39" stop-opacity="0.12"/>
+                        <stop offset="100%" stop-color="#e07b39" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+
+                    {/* Fondo cuadriculado */}
+                    <rect width="320" height="200" fill="url(#hiw-grid)"/>
+
+                    {/* ── Pieza en T ── */}
+                    {/* Placa horizontal (base) */}
+                    <rect x="22" y="132" width="276" height="26" rx="2"
+                          fill="#faf9f7" stroke="#b0a89e" stroke-width="1.5"/>
+                    {/* Canto inferior — ilusión de grosor */}
+                    <rect x="22" y="155" width="276" height="5" rx="1"
+                          fill="#ddd8d1" stroke="none"/>
+
+                    {/* Barra vertical (alma) */}
+                    <rect x="131" y="38" width="30" height="94" rx="2"
+                          fill="#faf9f7" stroke="#b0a89e" stroke-width="1.5"/>
+                    {/* Canto derecho — ilusión de grosor */}
+                    <rect x="158" y="38" width="5" height="94" rx="1"
+                          fill="#ddd8d1" stroke="none"/>
+
+                    {/* ── Línea de escaneo animada ── */}
+                    <g>
+                      <rect x="22" y="-12" width="276" height="24" fill="url(#hiw-scan-grad)">
+                        <animateTransform attributeName="transform" type="translate"
+                          values="0,30; 0,180; 0,30" dur="4s" repeatCount="indefinite"
+                          calcMode="ease-in-out"/>
+                      </rect>
+                      <line x1="22" y1="0" x2="298" y2="0"
+                            stroke="#e07b39" stroke-width="0.8">
+                        <animate attributeName="opacity" values="0;0.4;0.4;0"
+                                 keyTimes="0;0.12;0.88;1" dur="4s" repeatCount="indefinite"/>
+                        <animateTransform attributeName="transform" type="translate"
+                          values="0,30; 0,180; 0,30" dur="4s" repeatCount="indefinite"
+                          calcMode="ease-in-out"/>
+                      </line>
+                    </g>
+
+                    {/* ── Junta izquierda — FILETE #1 ── */}
+                    {/* Punto central */}
+                    <circle cx="131" cy="132" r="5" fill="#e07b39"/>
+                    {/* Anillo pulsante 1 */}
+                    <circle cx="131" cy="132" fill="none" stroke="#e07b39" stroke-width="1.5">
+                      <animate attributeName="r" values="5;20;5" dur="2.4s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" repeatCount="indefinite"/>
+                    </circle>
+                    {/* Anillo pulsante 2 — desfasado */}
+                    <circle cx="131" cy="132" fill="none" stroke="#e07b39" stroke-width="1">
+                      <animate attributeName="r" values="5;20;5" dur="2.4s" begin="0.8s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.5;0;0.5" dur="2.4s" begin="0.8s" repeatCount="indefinite"/>
+                    </circle>
+                    {/* Callout FILETE #1 */}
+                    <line x1="126" y1="124" x2="84" y2="92"
+                          stroke="#e07b39" stroke-width="0.9" opacity="0.55"/>
+                    <rect x="40" y="79" width="66" height="16" rx="3" fill="#1a1a1a"/>
+                    <text x="73" y="91" text-anchor="middle"
+                          font-size="8.5" font-family="monospace" font-weight="600"
+                          fill="#e07b39">FILETE #1</text>
+
+                    {/* ── Junta derecha — FILETE #2 ── */}
+                    {/* Punto central */}
+                    <circle cx="161" cy="132" r="5" fill="#e07b39"/>
+                    {/* Anillo pulsante 1 */}
+                    <circle cx="161" cy="132" fill="none" stroke="#e07b39" stroke-width="1.5">
+                      <animate attributeName="r" values="5;20;5" dur="2.4s" begin="0.4s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.85;0;0.85" dur="2.4s" begin="0.4s" repeatCount="indefinite"/>
+                    </circle>
+                    {/* Anillo pulsante 2 — desfasado */}
+                    <circle cx="161" cy="132" fill="none" stroke="#e07b39" stroke-width="1">
+                      <animate attributeName="r" values="5;20;5" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+                      <animate attributeName="opacity" values="0.5;0;0.5" dur="2.4s" begin="1.2s" repeatCount="indefinite"/>
+                    </circle>
+                    {/* Callout FILETE #2 */}
+                    <line x1="166" y1="124" x2="208" y2="92"
+                          stroke="#e07b39" stroke-width="0.9" opacity="0.55"/>
+                    <rect x="176" y="79" width="66" height="16" rx="3" fill="#1a1a1a"/>
+                    <text x="209" y="91" text-anchor="middle"
+                          font-size="8.5" font-family="monospace" font-weight="600"
+                          fill="#e07b39">FILETE #2</text>
+
+                    {/* Cota de referencia — evoca documentación técnica */}
+                    <line x1="22" y1="172" x2="129" y2="172"
+                          stroke="#b0a89e" stroke-width="0.7" stroke-dasharray="2 2"/>
+                    <line x1="22" y1="169" x2="22" y2="175" stroke="#b0a89e" stroke-width="0.7"/>
+                    <line x1="129" y1="169" x2="129" y2="175" stroke="#b0a89e" stroke-width="0.7"/>
+                    <text x="74" y="183" text-anchor="middle"
+                          font-size="7" font-family="monospace" fill="#9e9890">107 mm</text>
+                  </svg>
+
+                  {/* Barra de estado estilo terminal */}
+                  <div class="mockup-status-bar">
+                    <span class="status-blink" aria-hidden="true"></span>
+                    <span class="status-mono lang-es">2 juntas detectadas — FILETE</span>
+                    <span class="status-mono lang-en">2 joints detected — FILLET</span>
+                  </div>
+                </div>
+              )}
+
+              {/* ────────────────────────────────────────────────────
+                  PASO 2 — Parámetros ISO 2553
+                  Ficha técnica de especificaciones con diagrama de sección
+              ──────────────────────────────────────────────────── */}
+              {i === 1 && (
+                <div class="step-mockup step2-mockup">
+                  {/* Cabecera: tipo de junta + mini diagrama de sección */}
+                  <div class="spec-header">
+                    <div class="spec-header-meta">
+                      <span class="spec-badge">ISO 2553</span>
+                      <span class="spec-joint-name lang-es">⊿ Junta en filete</span>
+                      <span class="spec-joint-name lang-en">⊿ Fillet joint</span>
+                    </div>
+                    {/* Diagrama de sección transversal del filete */}
+                    <svg viewBox="0 0 72 56" class="section-diagram" aria-hidden="true">
+                      {/* Placa base horizontal */}
+                      <rect x="4" y="32" width="64" height="14" rx="1.5"
+                            fill="#e0dbd4" stroke="#9e9890" stroke-width="1"/>
+                      {/* Alma vertical */}
+                      <rect x="28" y="8" width="14" height="24" rx="1.5"
+                            fill="#e0dbd4" stroke="#9e9890" stroke-width="1"/>
+                      {/* Sección del cordón de filete (triángulo naranja) */}
+                      <polygon points="28,32 42,32 35,14"
+                               fill="rgba(224,123,57,0.15)"
+                               stroke="#e07b39" stroke-width="1.5"
+                               stroke-linejoin="round"/>
+                      {/* Cota "a" — garganta */}
+                      <line x1="35" y1="14" x2="35" y2="32"
+                            stroke="#e07b39" stroke-width="0.8" stroke-dasharray="2 1.5"/>
+                      <text x="38" y="26" font-size="6" font-family="monospace"
+                            fill="#e07b39" font-weight="700">a</text>
+                      {/* Ángulo 90° */}
+                      <path d="M 28 40 L 28 35 L 33 35" fill="none"
+                            stroke="#6b6b6b" stroke-width="0.8"/>
+                    </svg>
+                  </div>
+
+                  {/* Filas de especificación */}
+                  <div class="spec-table">
+                    <div class="spec-row">
+                      <span class="spec-label lang-es">Tipo</span>
+                      <span class="spec-label lang-en">Type</span>
+                      <span class="spec-val">⊿ FILETE</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-label lang-es">Garganta (a)</span>
+                      <span class="spec-label lang-en">Throat (a)</span>
+                      <span class="spec-val mono">3.5 mm</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-label lang-es">Cateto (z)</span>
+                      <span class="spec-label lang-en">Leg (z)</span>
+                      <span class="spec-val mono">4.9 mm</span>
+                    </div>
+                    <div class="spec-row">
+                      <span class="spec-label lang-es">Ángulo de junta</span>
+                      <span class="spec-label lang-en">Joint angle</span>
+                      <span class="spec-val mono">90°</span>
+                    </div>
+                    {/* Fila de resultado calculado — destacada */}
+                    <div class="spec-row spec-row-highlight">
+                      <span class="spec-label lang-es">Orientación antorcha</span>
+                      <span class="spec-label lang-en">Torch orientation</span>
+                      <span class="spec-val mono">Rx180 Ry45 Rz0</span>
+                    </div>
+                  </div>
+
+                  {/* Nota ISO */}
+                  <div class="spec-footer">
+                    <span class="spec-footer-text">ISO 2553 · EN 1090-2</span>
+                  </div>
+                </div>
+              )}
+
+              {/* ────────────────────────────────────────────────────
+                  PASO 3 — Secuencia de cordones (cola de tareas)
+                  Panel estilo CI/CD con estados de progreso
+              ──────────────────────────────────────────────────── */}
+              {i === 2 && (
+                <div class="step-mockup step3-mockup">
+                  {/* Cabecera del panel */}
+                  <div class="prog-header">
+                    <div class="prog-header-left">
+                      <svg viewBox="0 0 16 16" width="14" height="14" fill="none"
+                           stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                        <polyline points="4 6 8 10 12 6"/>
+                        <line x1="2" y1="3" x2="14" y2="3"/>
+                        <line x1="2" y1="13" x2="14" y2="13"/>
+                      </svg>
+                      <span class="prog-header-label lang-es">Secuencia de cordones</span>
+                      <span class="prog-header-label lang-en">Weld bead sequence</span>
+                    </div>
+                    <span class="prog-count">3</span>
+                  </div>
+
+                  {/* Lista de cordones */}
+                  <div class="prog-list">
+                    {/* Cordón 1 — completado */}
+                    <div class="prog-row">
+                      <span class="prog-dot prog-dot-done" aria-hidden="true"></span>
+                      <div class="prog-info">
+                        <span class="prog-name lang-es">Junta 1 · FILETE</span>
+                        <span class="prog-name lang-en">Joint 1 · FILLET</span>
+                        <span class="prog-sub lang-es">T-pieza izq. · a=3.5mm</span>
+                        <span class="prog-sub lang-en">T-part left · a=3.5mm</span>
+                      </div>
+                      <span class="prog-meta mono">92.9mm</span>
+                    </div>
+
+                    {/* Cordón 2 — completado */}
+                    <div class="prog-row">
+                      <span class="prog-dot prog-dot-done" aria-hidden="true"></span>
+                      <div class="prog-info">
+                        <span class="prog-name lang-es">Junta 2 · FILETE</span>
+                        <span class="prog-name lang-en">Joint 2 · FILLET</span>
+                        <span class="prog-sub lang-es">T-pieza der. · a=3.5mm</span>
+                        <span class="prog-sub lang-en">T-part right · a=3.5mm</span>
+                      </div>
+                      <span class="prog-meta mono">92.9mm</span>
+                    </div>
+
+                    {/* Cordón 3 — pendiente / ejecutando */}
+                    <div class="prog-row prog-row-pending">
+                      <span class="prog-dot prog-dot-pending" aria-hidden="true"></span>
+                      <div class="prog-info">
+                        <span class="prog-name lang-es">Junta 3 · TOPE</span>
+                        <span class="prog-name lang-en">Joint 3 · BUTT</span>
+                        <span class="prog-sub lang-es">calculando…</span>
+                        <span class="prog-sub lang-en">calculating…</span>
+                      </div>
+                      <span class="prog-meta mono prog-meta-dim lang-es">pendiente</span>
+                      <span class="prog-meta mono prog-meta-dim lang-en">pending</span>
+                    </div>
+                  </div>
+
+                  {/* Resumen de proceso */}
+                  <div class="prog-footer">
+                    <div class="prog-footer-row">
+                      <span class="prog-footer-label lang-es">Longitud total</span>
+                      <span class="prog-footer-label lang-en">Total length</span>
+                      <span class="prog-footer-val mono">185.8 mm</span>
+                    </div>
+                    <div class="prog-footer-row">
+                      <span class="prog-footer-label lang-es">Tiempo estimado</span>
+                      <span class="prog-footer-label lang-en">Estimated time</span>
+                      <span class="prog-footer-val mono accent">~1m 48s</span>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* ────────────────────────────────────────────────────
+                  PASO 4 — Exportación
+                  Abanico de "tarjetas de archivo" en CSS transform
+              ──────────────────────────────────────────────────── */}
+              {i === 3 && (
+                <div class="step-mockup step4-mockup">
+                  {/* Robot destino */}
+                  <div class="export-target">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none"
+                         stroke="currentColor" stroke-width="1.75" aria-hidden="true">
+                      <rect x="2" y="7" width="20" height="14" rx="2"/>
+                      <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/>
+                    </svg>
+                    <span class="export-robot mono">KUKA KR 6 R700 sixx</span>
+                  </div>
+
+                  {/* Abanico de archivos */}
+                  <div class="file-fan" aria-label="Archivos exportados: SRC, DAT, PDF">
+                    {/* Tarjeta izquierda — .DAT */}
+                    <div class="file-card file-left">
+                      <span class="file-ext mono">.DAT</span>
+                      <span class="file-title lang-es">Posiciones</span>
+                      <span class="file-title lang-en">Positions</span>
+                      <div class="file-lines" aria-hidden="true">
+                        <span class="fl fl-full"></span>
+                        <span class="fl fl-short"></span>
+                        <span class="fl fl-mid"></span>
+                      </div>
+                    </div>
+
+                    {/* Tarjeta central — .SRC (principal, encima) */}
+                    <div class="file-card file-center">
+                      <span class="file-ext mono">.SRC</span>
+                      <span class="file-title">KUKA KRL</span>
+                      <div class="file-lines file-code" aria-hidden="true">
+                        <span class="fl fl-full code-kw"></span>
+                        <span class="fl fl-mid"></span>
+                        <span class="fl fl-full"></span>
+                        <span class="fl fl-short code-val"></span>
+                        <span class="fl fl-mid"></span>
+                      </div>
+                    </div>
+
+                    {/* Tarjeta derecha — .PDF */}
+                    <div class="file-card file-right">
+                      <span class="file-ext mono">.PDF</span>
+                      <span class="file-title lang-es">Instrucciones</span>
+                      <span class="file-title lang-en">Instructions</span>
+                      <div class="file-lines" aria-hidden="true">
+                        <span class="fl fl-full"></span>
+                        <span class="fl fl-full"></span>
+                        <span class="fl fl-short"></span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Confirmación de exportación */}
+                  <div class="export-confirm">
+                    <span class="export-check" aria-hidden="true"></span>
+                    <span class="export-confirm-text lang-es">Listo para cargar en el controlador</span>
+                    <span class="export-confirm-text lang-en">Ready to load on the controller</span>
+                  </div>
+                </div>
+              )}
+
             </div>
           </div>
         ))}
@@ -55,14 +375,15 @@ import en from '../i18n/en.json';
 </section>
 
 <style>
+  /* ════════════════════════════════════════════════
+     Layout existente — sin cambios
+  ════════════════════════════════════════════════ */
   .hiw-header {
     text-align: center;
     margin-bottom: var(--space-16);
   }
 
-  .hiw-header .section-title {
-    margin-bottom: 0;
-  }
+  .hiw-header .section-title { margin-bottom: 0; }
 
   .hiw-steps {
     display: flex;
@@ -70,7 +391,6 @@ import en from '../i18n/en.json';
     gap: var(--space-16);
   }
 
-  /* Cada paso: texto + visual (zigzag en desktop) */
   .hiw-step {
     display: grid;
     grid-template-columns: 1fr;
@@ -83,12 +403,10 @@ import en from '../i18n/en.json';
       grid-template-columns: 1fr 1fr;
       gap: var(--space-12);
     }
-
-    .hiw-step-reversed .hiw-text { order: 2; }
+    .hiw-step-reversed .hiw-text  { order: 2; }
     .hiw-step-reversed .hiw-visual { order: 1; }
   }
 
-  /* Texto */
   .hiw-tag {
     display: inline-block;
     font-size: var(--text-xs);
@@ -118,22 +436,491 @@ import en from '../i18n/en.json';
     line-height: 1.75;
   }
 
-  /* Visual */
   .hiw-visual {
     border-radius: var(--radius-xl);
     overflow: hidden;
   }
 
-  /* Desc del placeholder */
-  .placeholder-desc {
-    font-size: var(--text-xs);
-    color: var(--texto-sec);
-    font-style: italic;
-    max-width: 280px;
-    line-height: 1.5;
+  /* ════════════════════════════════════════════════
+     Contenedor común de todos los mockups
+  ════════════════════════════════════════════════ */
+  .step-mockup {
+    width: 100%;
+    max-width: 340px;
+    background-color: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 0 auto;
   }
 
-  .screenshot-placeholder {
-    min-height: 300px;
+  /* ════════════════════════════════════════════════
+     PASO 1 — Detección de juntas
+  ════════════════════════════════════════════════ */
+  .detection-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    background-color: #faf9f7;
+  }
+
+  /* Barra de estado estilo terminal */
+  .mockup-status-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background-color: #1a1a1a;
+  }
+
+  .status-blink {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #e07b39;
+    flex-shrink: 0;
+    animation: blinkDot 1.6s ease-in-out infinite;
+  }
+
+  .status-mono {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: #e07b39;
+    letter-spacing: 0.04em;
+  }
+
+  @keyframes blinkDot {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.25; }
+  }
+
+  /* ════════════════════════════════════════════════
+     PASO 2 — Parámetros ISO 2553
+  ════════════════════════════════════════════════ */
+  .step2-mockup {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Cabecera: badge ISO + diagrama de sección */
+  .spec-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--borde);
+  }
+
+  .spec-header-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .spec-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: #fff;
+    background-color: #1a1a1a;
+    border-radius: 4px;
+    padding: 2px 7px;
+    width: fit-content;
+  }
+
+  .spec-joint-name {
+    font-size: 0.8rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    letter-spacing: -0.01em;
+  }
+
+  .section-diagram {
+    width: 68px;
+    height: auto;
+    flex-shrink: 0;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    padding: 4px;
+  }
+
+  /* Filas de datos */
+  .spec-table {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .spec-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--borde);
+    gap: 8px;
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+
+  /* Fila destacada — resultado clave calculado */
+  .spec-row-highlight {
+    background-color: rgba(224,123,57,0.05);
+    margin: 0 -20px;
+    padding: 9px 20px;
+    border-left: 3px solid var(--acento);
+    border-bottom: none;
+  }
+
+  .spec-label {
+    font-size: 0.75rem;
+    color: var(--texto-sec);
+    flex: 1;
+  }
+
+  .spec-val {
+    font-size: 0.78rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .spec-val.mono {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+  }
+
+  .spec-footer {
+    padding-top: 4px;
+    text-align: right;
+  }
+
+  .spec-footer-text {
+    font-family: var(--font-mono);
+    font-size: 0.6rem;
+    color: var(--texto-sec);
+    opacity: 0.6;
+    letter-spacing: 0.06em;
+  }
+
+  /* ════════════════════════════════════════════════
+     PASO 3 — Secuencia / Cola de cordones
+  ════════════════════════════════════════════════ */
+  .step3-mockup {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Cabecera del panel */
+  .prog-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    background-color: var(--bg-panel);
+    border-bottom: 1px solid var(--borde);
+    gap: 8px;
+  }
+
+  .prog-header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-sec);
+  }
+
+  .prog-header-label {
+    font-size: 0.7rem;
+    font-weight: var(--weight-semibold);
+    font-family: var(--font-mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--texto-sec);
+  }
+
+  .prog-count {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #fff;
+    background-color: var(--acento);
+    border-radius: 100px;
+    padding: 1px 7px;
+    line-height: 1.6;
+  }
+
+  /* Lista de cordones */
+  .prog-list {
+    display: flex;
+    flex-direction: column;
+    padding: 6px 0;
+  }
+
+  .prog-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border-bottom: 1px solid rgba(232,227,220,0.6);
+  }
+
+  .prog-row:last-child { border-bottom: none; }
+
+  .prog-row-pending {
+    background-color: rgba(240,237,232,0.4);
+  }
+
+  /* Dot de estado */
+  .prog-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .prog-dot-done {
+    background-color: #4a9e6b; /* var(--exito) */
+  }
+
+  .prog-dot-pending {
+    background-color: #9e9890;
+    animation: pendingPulse 1.8s ease-in-out infinite;
+  }
+
+  @keyframes pendingPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.35; transform: scale(0.75); }
+  }
+
+  .prog-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .prog-name {
+    font-size: 0.78rem;
+    font-weight: var(--weight-medium);
+    color: var(--texto);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .prog-sub {
+    font-size: 0.65rem;
+    color: var(--texto-sec);
+    font-family: var(--font-mono);
+    opacity: 0.75;
+  }
+
+  .prog-meta {
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+    flex-shrink: 0;
+    text-align: right;
+  }
+
+  .prog-meta-dim {
+    color: var(--texto-sec);
+    font-weight: normal;
+    opacity: 0.6;
+  }
+
+  /* Resumen de proceso */
+  .prog-footer {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 10px 14px;
+    background-color: var(--bg-panel);
+    border-top: 1px solid var(--borde);
+  }
+
+  .prog-footer-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .prog-footer-label {
+    font-size: 0.67rem;
+    color: var(--texto-sec);
+  }
+
+  .prog-footer-val {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto);
+  }
+
+  .prog-footer-val.accent {
+    color: var(--acento);
+  }
+
+  /* ════════════════════════════════════════════════
+     PASO 4 — Exportación (abanico de tarjetas)
+  ════════════════════════════════════════════════ */
+  .step4-mockup {
+    padding: 20px 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Robot destino */
+  .export-target {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 12px;
+    background-color: var(--bg-panel);
+    border: 1px solid var(--borde);
+    border-radius: 6px;
+    color: var(--texto-sec);
+  }
+
+  .export-robot {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--texto);
+    letter-spacing: 0.02em;
+  }
+
+  /* Abanico de archivos */
+  .file-fan {
+    position: relative;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .file-card {
+    position: absolute;
+    width: 108px;
+    background-color: #faf9f7;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    padding: 14px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+
+  /* Tarjeta izquierda — .DAT */
+  .file-left {
+    transform: rotate(-9deg) translateX(-52px) translateY(4px);
+    z-index: 1;
+    opacity: 0.72;
+  }
+
+  /* Tarjeta central — .SRC (principal) */
+  .file-center {
+    transform: rotate(0deg);
+    z-index: 3;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+
+  /* Tarjeta derecha — .PDF */
+  .file-right {
+    transform: rotate(9deg) translateX(52px) translateY(4px);
+    z-index: 2;
+    opacity: 0.72;
+  }
+
+  /* Extensión de archivo */
+  .file-ext {
+    font-family: var(--font-mono);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--acento);
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  /* Nombre del archivo */
+  .file-title {
+    font-size: 0.65rem;
+    font-weight: var(--weight-semibold);
+    color: var(--texto-sec);
+    letter-spacing: 0.01em;
+  }
+
+  /* Líneas de código estilizadas */
+  .file-lines {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin-top: 4px;
+  }
+
+  .fl {
+    height: 3px;
+    border-radius: 2px;
+    background-color: var(--borde);
+    display: block;
+  }
+
+  .fl-full  { width: 100%; }
+  .fl-mid   { width: 70%; }
+  .fl-short { width: 45%; }
+
+  /* Líneas coloreadas en la tarjeta .SRC */
+  .file-code .code-kw  { background-color: rgba(224,123,57,0.4); width: 55%; }
+  .file-code .code-val { background-color: rgba(74,158,107,0.35); }
+
+  /* Confirmación de exportación */
+  .export-confirm {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background-color: rgba(74,158,107,0.07);
+    border: 1px solid rgba(74,158,107,0.2);
+    border-radius: 6px;
+  }
+
+  .export-check {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #4a9e6b;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Dibujar el checkmark con CSS */
+  .export-check::after {
+    content: '';
+    display: block;
+    width: 4px;
+    height: 7px;
+    border-right: 1.5px solid #fff;
+    border-bottom: 1.5px solid #fff;
+    transform: rotate(45deg) translate(-1px, -1px);
+  }
+
+  .export-confirm-text {
+    font-size: 0.72rem;
+    font-weight: var(--weight-medium);
+    color: #4a9e6b;
+    font-family: var(--font-mono);
+    letter-spacing: 0.02em;
   }
 </style>
